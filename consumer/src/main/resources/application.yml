@@ -1,0 +1,29 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: consumer # 应用名称
+eureka:
+  client:
+    service-url: # EurekaServer地址
+      defaultZone: http://127.0.0.1:8761/eureka,http://127.0.0.1:8762/eureka
+    fetch-registry: true  # 若设置为true，会从Eureka中只读备份，缓存在本地，并且每个30秒重新获取更新数据
+    registry-fetch-interval-seconds: 5  # 5秒更新Eureka备份数据
+  instance:
+    prefer-ip-address: true # 当其它服务获取地址时提供ip而不是hostname
+    ip-address: 127.0.0.1 # 指定自己的ip信息，不指定的话会自己寻找
+#user-service: # {服务名称}.ribbon.NFLoadBalancerRuleClassName ，修改轮询策略，为随机
+#  ribbon:
+##    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    ConnectTimeout: 250 # Ribbon的连接超时时间
+#    ReadTimeout: 1000 # Ribbon的数据读取超时时间，一定小于hystrix的超时时间（默认1000ms）,要先启动负载均衡，若所有的服务都请求超时后，才执行服务熔断，降级
+#    OkToRetryOnAllOperations: true # 是否对所有操作都进行重试
+#    MaxAutoRetriesNextServer: 1 # 切换实例的重试次数
+#    MaxAutoRetries: 1 # 对当前实例的重试次数
+#hystrix:
+#  command:
+#  	default:
+#        execution:
+#          isolation:
+#            thread:
+#              timeoutInMillisecond: 6000 # 设置hystrix的超时时间为6000ms
